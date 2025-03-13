@@ -1,0 +1,87 @@
+use reqwest;
+use scraper::{Html, Selector};
+use std::error::Error;
+use std::io;
+use std::thread;
+use std::time::Duration;
+
+const MAX_DEPTH: usize = 3;
+
+fn main() {
+    read();
+}
+
+//read url
+fn read() {
+    let mut url_input = String::new();
+    println!("Enter link: ");
+    io::stdin().read_line(&mut url_input).expect("url_input: error");
+
+    let url_input = url_input.trim().to_string();
+
+    match seaker(url_input, 0) {
+        Ok(_) => println!("Scraping successful!"),
+        Err(e) => eprintln!("Error: {}", e),
+    }
+}
+
+// webscraper
+fn seaker(url_input: String, depth: usize) -> Result<(), Box<dyn Error>> {
+    //max depth to search through
+    if depth > MAX_DEPTH {
+        return Ok(());
+    }
+
+    let client = reqwest::blocking::Client::new();
+
+    //send request
+    let response = client.get(&url_input)
+        .header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, wie Gecko) Chrome/100.0.4896.127 Safari/537.36")
+        .send()?;
+
+    //ask status
+    if !response.status().is_success() {
+        eprintln!("Failed to call: {}, Status: {}", url_input, response.status());
+        return Err("Request failed".into());
+    }
+    
+    //search for new links in input url -> look for new links in those and so on
+    let body = response.text()?;
+    let document = Html::parse_document(&body);
+    let selector_link = Selector::parse("a").unwrap();
+
+    println!("links found on {} (Depth: {})", url_input, depth);
+    println!("---------------------------------------------------");
+
+    //vector with new links
+    let mut new_links = Vec::new();
+
+    //list all links
+    for element in document.select(&selector_link){
+        if let Some(link) = element.value().attr("href"){
+           //https links
+           let absolute_link = if link.starts_with("https"){
+                link.to_string()
+            //looking through the other links
+            }else if link.starts_with("/") {
+                format!("{}{}", url_input, link)
+            } else {
+                continue;
+            };
+
+            println!("{}", absolute_link);
+            new_links.push(absolute_link);
+        }
+    }
+    println!("---------------------------------------------------");
+
+    //wait time -> performance
+    thread::sleep(Duration::from_secs(2));
+
+    //Recursive call -> new links
+    for link in new_links{
+        seaker(link, depth+1)?;
+    }
+
+    Ok(())
+}
