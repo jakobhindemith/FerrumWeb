@@ -42,7 +42,7 @@ fn seaker(url_input: String, depth: usize) -> Result<(), Box<dyn Error>> {
     //ask status
     if !response.status().is_success() {
         eprintln!("Failed to call: {}, Status: {}", url_input, response.status());
-        return Err("Request failed".into());
+       // return Err("Request failed".into());
     }
     
     //search for new links in input url -> look for new links in those and so on
@@ -59,18 +59,19 @@ fn seaker(url_input: String, depth: usize) -> Result<(), Box<dyn Error>> {
     //list all links
     for element in document.select(&selector_link){
         if let Some(link) = element.value().attr("href"){
-           //https links
+           //filter https links
            let absolute_link = if link.starts_with("https"){
                 link.to_string()
-            //looking through the other links
-            }else if link.starts_with("/") {
-                format!("{}{}", url_input, link)
             } else {
                 continue;
             };
 
-            println!("{}", absolute_link);
-            new_links.push(absolute_link);
+            println!("absolute: {}", absolute_link);
+            //no doubles
+            if !new_links.contains(&absolute_link){
+                new_links.push(absolute_link);
+
+            }
         }
     }
     println!("---------------------------------------------------");
