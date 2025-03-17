@@ -1,9 +1,11 @@
 use reqwest;
 use scraper::{Html, Selector};
 use std::error::Error;
+use std::fs::File;
 use std::io;
 use std::thread;
 use std::time::Duration;
+use std::io::Write;
 
 const MAX_DEPTH: usize = 3;
 
@@ -13,21 +15,24 @@ fn main() {
 
 //read url
 fn read() {
+    //create file to write links to
+    let mut file = File::create("C:\\Rust\\webcrawler_email\\link_results.txt").expect("Faild create file");
+
     let mut url_input = String::new();
     println!("Enter link: ");
     io::stdin().read_line(&mut url_input).expect("url_input: error");
 
     let url_input = url_input.trim().to_string();
 
-    match seaker(url_input, 0) {
+    match seaker(url_input, 0, &mut file) {
         Ok(_) => println!("Scraping successful!"),
         Err(e) => eprintln!("Error: {}", e),
     }
 }
 
 // webscraper
-fn seaker(url_input: String, depth: usize) -> Result<(), Box<dyn Error>> {
-    //max depth to search through
+fn seaker(url_input: String, depth: usize, file: &mut File) -> Result<(), Box<dyn Error>> {
+    //max depth to search through -> later
     if depth > MAX_DEPTH {
         return Ok(());
     }
@@ -66,7 +71,11 @@ fn seaker(url_input: String, depth: usize) -> Result<(), Box<dyn Error>> {
                 continue;
             };
 
-            println!("absolute: {}", absolute_link);
+            //print discovert links
+            println!("- {}", absolute_link);
+            
+            //write links into file
+            file.write_all(absolute_link.as_bytes())?;
             //no doubles
             if !new_links.contains(&absolute_link){
                 new_links.push(absolute_link);
@@ -77,12 +86,11 @@ fn seaker(url_input: String, depth: usize) -> Result<(), Box<dyn Error>> {
     println!("---------------------------------------------------");
 
     //wait time -> performance
-    thread::sleep(Duration::from_secs(2));
+    //thread::sleep(Duration::from_secs(2));
 
     //Recursive call -> new links
     for link in new_links{
-        seaker(link, depth+1)?;
+        seaker(link, depth+1, file)?;
     }
-
     Ok(())
 }
