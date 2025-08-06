@@ -27,7 +27,7 @@ pub fn read() {
     //search links
     match seaker(&conn, url_input, 0, &mut file) {
         Ok(_) => println!("Scraping successful!"),
-        Err(e) => eprintln!("Error: {}", e),
+        Err(e) => eprintln!("Error seaking : {}", e),
     }
 }
 
