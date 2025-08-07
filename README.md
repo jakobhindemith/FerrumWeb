@@ -35,11 +35,11 @@ cargo run
 When the program starts, it prompts for a URL and begins crawling from that page. All discovered links are stored recursively in a database. The resulting structure is useful for analyzing site architectures, detecting broken links, or conducting SEO audits.
 🧪 Example SQL Queries
 
-    Count of distinct URLs:
+  Count of distinct URLs:
   ```sql
   SELECT COUNT(DISTINCT URL) FROM link;
   ```
-    Grouped links by frequency:
+  Grouped links by frequency:
   ```sql
     SELECT URL, COUNT(*) AS count FROM link GROUP BY URL ORDER BY count DESC;
   ```
