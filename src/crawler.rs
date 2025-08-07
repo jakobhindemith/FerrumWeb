@@ -13,7 +13,7 @@ const MAX_DEPTH: usize = 3;
 //read url's
 pub fn read() {
     //create file to write links to
-    let mut file = File::create("C:\\Rust\\webcrawler_email\\link_results.txt").expect("Faild create file");
+    let mut file = File::create("C:\\Rust\\webcrawler_links\\link_results.txt").expect("Faild create file");
 
     //commandline input
     let mut url_input = String::new();
