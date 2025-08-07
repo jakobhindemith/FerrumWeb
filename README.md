@@ -30,7 +30,7 @@ cd webcrawler_links
 cargo run
 ```
 
-💡 Usage
+## 💡Usage
 
 When the program starts, it prompts for a URL and begins crawling from that page. All discovered links are stored recursively in a database. The resulting structure is useful for analyzing site architectures, detecting broken links, or conducting SEO audits.
 🧪 Example SQL Queries
@@ -44,6 +44,6 @@ When the program starts, it prompts for a URL and begins crawling from that page
     SELECT URL, COUNT(*) AS count FROM link GROUP BY URL ORDER BY count DESC;
   ```
 
-⚠️ Disclaimer
+## ⚠️ Disclaimer
 
 This tool is intended for educational and research purposes only. Please respect website robots.txt policies and use responsibly.
