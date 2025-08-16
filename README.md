@@ -1,19 +1,24 @@
 # 🕸️ webcrawler_links
 
-A recursive **Rust** web crawler that visits websites, extracts links, and stores them in a **SQLite database**. Each link is saved with its **parent URL** and **depth level**, allowing a structured hierarchy of web connections.
+A recursive **Rust** web crawler that visits websites, extracts links, and stores them in a **SQLite database**.
 
-## 🔍 Features
+## 🔍 Features now
 
-- 🌐 Recursively crawls websites up to a configurable depth  
-- 🔗 Extracts all HTML links (`<a href="...">`)  
-- 🧭 Stores:
-  - the discovered URL,
-  - its parent URL,
-  - the crawl depth level,
+-  Extracts all HTML links (`<a href="...">`)  
+-  Stores:
+  - the discovered URL
   - and a unique ID
-- 🗃️ Persists data in a SQLite database (table: `link`)
-- 🧹 Filters duplicate links (optional aggregation)
-- ⏳ Optional delay between requests to avoid rate-limiting
+-  Persists data in a SQLite database (table: `link`)
+-  Filters duplicate links (optional aggregation)
+-  Optional delay between requests to avoid rate-limiting
+
+## Features future
+-  Recursively crawls websites up to a configurable depth  
+-  Stores:
+  - its parent URL
+  - the crawl depth level
+
+Each link is saved with its **parent URL** and **depth level**, allowing a structured hierarchy of web connections.
 
 ## 🛠️ Technologies
 
@@ -33,7 +38,8 @@ cargo run
 ## 💡Usage
 
 When the program starts, it prompts for a URL and begins crawling from that page. All discovered links are stored recursively in a database. The resulting structure is useful for analyzing site architectures, detecting broken links, or conducting SEO audits.
-🧪 Example SQL Queries
+
+🧪 Example SQL Queries:
 
   Count of distinct URLs:
   ```sql
