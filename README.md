@@ -49,7 +49,3 @@ When the program starts, it prompts for a URL and begins crawling from that page
   ```sql
     SELECT URL, COUNT(*) AS count FROM link GROUP BY URL ORDER BY count DESC;
   ```
-
-## ⚠️ Disclaimer
-
-This tool is intended for educational and research purposes only. Please respect website robots.txt policies and use responsibly.
