@@ -1,38 +1,15 @@
 use crate::db;
-
 use reqwest;
 use rusqlite::Connection;
 use scraper::{Html, Selector};
 use std::error::Error;
 use std::fs::File;
-use std::io;
 use std::io::Write;
 
 const MAX_DEPTH: usize = 3;
 
-//read url's
-pub fn read() {
-    //create file to write links to
-    let mut file = File::create("C:\\Rust\\webcrawler_links\\link_results.txt").expect("Faild create file");
-
-    //commandline input
-    let mut url_input = String::new();
-    println!("Enter link: ");
-    io::stdin().read_line(&mut url_input).expect("url_input: error");
-    let url_input = url_input.trim().to_string();
-    
-    //db Connection -> init
-    let conn = db::init_db().expect("DB Fail");
-
-    //search links
-    match seaker(&conn, url_input, 0, &mut file) {
-        Ok(_) => println!("Scraping successful!"),
-        Err(e) => eprintln!("Error seaking : {}", e),
-    }
-}
-
 // webscraper
-fn seaker(conn: &Connection, url_input: String, depth: usize, file: &mut File) -> Result<(), Box<dyn Error>> {
+pub fn seaker(conn: &Connection, url_input: String, depth: usize, file: &mut File) -> Result<(), Box<dyn Error>> {
     //max depth to search through -> later
     if depth > MAX_DEPTH {
         return Ok(());
@@ -64,6 +41,7 @@ fn seaker(conn: &Connection, url_input: String, depth: usize, file: &mut File) -
     //list all links
     for element in document.select(&selector_link){
         if let Some(link) = element.value().attr("href"){
+           
            //filter https links
            let absolute_link = if link.starts_with("https"){
                 link.to_string()
@@ -83,7 +61,6 @@ fn seaker(conn: &Connection, url_input: String, depth: usize, file: &mut File) -
             if !new_links.contains(&absolute_link){
                 new_links.push(absolute_link);
              }
-            
         }
     }
     println!("---------------------------------------------------");
