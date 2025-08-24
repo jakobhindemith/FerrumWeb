@@ -2,7 +2,7 @@
 
 A recursive **Rust** web crawler that visits websites, extracts links, and stores them in a **SQLite database**.
 
-## 🔍 Features now
+## 🔍 Features
 
 -  Extracts all HTML links (`<a href="...">`)  
 -  Stores:
@@ -17,12 +17,10 @@ A recursive **Rust** web crawler that visits websites, extracts links, and store
 -  Stores:
   - its parent URL
   - the crawl depth level
-
-Each link is saved with its **parent URL** and **depth level**, allowing a structured hierarchy of web connections.
+- Each link is saved with its **parent URL** and **depth level**, allowing a structured hierarchy of web connections.
 
 ## 🛠️ Technologies
 
-- [Rust](https://www.rust-lang.org/)
 - [`reqwest`](https://docs.rs/reqwest/) – HTTP client  
 - [`scraper`](https://docs.rs/scraper/) – HTML parser  
 - [`rusqlite`](https://docs.rs/rusqlite/) – SQLite database integration
@@ -37,9 +35,9 @@ cargo run
 
 ## 💡Usage
 
-When the program starts, it prompts for a URL and begins crawling from that page. All discovered links are stored recursively in a database. The resulting structure is useful for analyzing site architectures, detecting broken links, or conducting SEO audits.
+When the program starts, it prompts for a URL and begins crawling from that page. All discovered links are stored recursively in a database. The resulting structure is useful for analyzing site architectures or detecting broken links.
 
-🧪 Example SQL Queries:
+Example SQL Queries:
 
   Count of distinct URLs:
   ```sql
