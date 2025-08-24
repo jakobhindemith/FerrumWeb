@@ -2,10 +2,15 @@ mod crawler;
 mod db;
 use std::io;
 use std::fs::File;
+use std::time:: Instant;
 
 
 //read url's
 fn main() {
+
+    //Timer for Runtime
+    let start = Instant::now();
+    
     //create file to write links to
     let mut file = File::create("C:\\Rust\\webcrawler_links\\link_results.txt").expect("Faild create file");
 
@@ -23,4 +28,8 @@ fn main() {
         Ok(_) => println!("Scraping successful!"),
         Err(e) => eprintln!("Error seaking : {}", e),
     }
+
+    //Timer ends
+    let elapsed = start.elapsed().as_secs();
+    println!("Runtime:  {}", elapsed);
 }
