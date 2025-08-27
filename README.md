@@ -9,7 +9,6 @@ A recursive **Rust** web crawler that visits websites, extracts links, and store
   - the discovered URL
   - and a unique ID
 -  Persists data in a SQLite database (table: `link`)
--  Filters duplicate links (optional aggregation)
 -  Optional delay between requests to avoid rate-limiting
 
 ## Features future

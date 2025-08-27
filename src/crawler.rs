@@ -42,8 +42,11 @@ pub fn seaker(conn: &Connection, url_input: String, depth: usize, file: &mut Fil
     for element in document.select(&selector_link){
         if let Some(link) = element.value().attr("href"){
            
-           //filter https links
-           let absolute_link = if link.starts_with("https"){
+        //filter https/http links
+        let absolute_link = 
+            if link.starts_with("https"){
+                link.to_string()
+            } else if link.starts_with("http"){
                 link.to_string()
             } else {
                 continue;

@@ -4,7 +4,6 @@ use std::io;
 use std::fs::File;
 use std::time:: Instant;
 
-
 //read url's
 fn main() {
 
