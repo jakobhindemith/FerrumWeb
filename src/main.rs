@@ -6,9 +6,6 @@ use std::time:: Instant;
 
 //read url's
 fn main() {
-
-    //Timer for Runtime
-    let start = Instant::now();
     
     //create file to write links to
     let mut file = File::create("C:\\Rust\\webcrawler_links\\link_results.txt").expect("Faild create file");
@@ -21,7 +18,7 @@ fn main() {
     io::stdin().read_line(&mut url_input).expect("url_input error");
     let url_input = url_input.trim().to_string();
     
-    println!("Enter depth:");
+    println!("Enter depth to search: ");
     io::stdin().read_line(&mut depth_str).expect( "depth input error");
     let depth_max: usize = depth_str.trim().parse().expect("musst be a non negative integer");
     
@@ -30,6 +27,9 @@ fn main() {
     //start with depth 0
     let depth = 0;
 
+     //Timer for Runtime
+    let start = Instant::now();
+
     //search links
     match crawler::seaker(&conn, url_input, depth, &mut file, depth_max) {
         Ok(_) => println!("Scraping successful!"),
@@ -37,6 +37,6 @@ fn main() {
     }
 
     //Timer ends
-    let elapsed = start.elapsed().as_secs();
-    println!("Runtime:  {}", elapsed);
+    let elapsed = start.elapsed().as_secs_f32();
+    println!("Runtime:  {} sec", elapsed);
 }

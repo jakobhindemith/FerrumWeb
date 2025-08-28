@@ -6,8 +6,6 @@ use std::error::Error;
 use std::fs::File;
 use std::io::Write;
 
-
-
 // webscraper
 pub fn seaker(conn: &Connection, url_input: String, depth: usize, file: &mut File, depth_max: usize) -> Result<(), Box<dyn Error>> {
     
@@ -74,7 +72,7 @@ pub fn seaker(conn: &Connection, url_input: String, depth: usize, file: &mut Fil
     //wait time -> performance
     //thread::sleep(Duration::from_secs(2));
 
-    //Recursive call -> new links
+    //Recursive call -> new links -> search trough new links +1 depth
     for link in new_links{
         seaker(conn, link, depth+1, file, depth_max)?;
     }
