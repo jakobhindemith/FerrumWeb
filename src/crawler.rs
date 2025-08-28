@@ -62,6 +62,7 @@ pub fn seaker(conn: &Connection, url_input: String, depth: usize, file: &mut Fil
 
             //write links into file
             file.write_all(absolute_link.as_bytes())?;
+            file.write_all(b"\n")?;
             //no doubles
             if !new_links.contains(&absolute_link){
                 new_links.push(absolute_link);
