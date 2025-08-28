@@ -15,15 +15,23 @@ fn main() {
 
     //commandline input
     let mut url_input = String::new();
+    let mut depth_str = String::new();
+
     println!("Enter link: ");
-    io::stdin().read_line(&mut url_input).expect("url_input: error");
+    io::stdin().read_line(&mut url_input).expect("url_input error");
     let url_input = url_input.trim().to_string();
+    
+    println!("Enter depth:");
+    io::stdin().read_line(&mut depth_str).expect( "depth input error");
+    let depth_max: usize = depth_str.trim().parse().expect("musst be a non negative integer");
     
     //db Connection -> init
     let conn = db::init_db().expect("DB Fail");
+    //start with depth 0
+    let depth = 0;
 
     //search links
-    match crawler::seaker(&conn, url_input, 0, &mut file) {
+    match crawler::seaker(&conn, url_input, depth, &mut file, depth_max) {
         Ok(_) => println!("Scraping successful!"),
         Err(e) => eprintln!("Error seaking : {}", e),
     }
