@@ -6,14 +6,16 @@ use std::error::Error;
 use std::fs::File;
 use std::io::Write;
 
-const MAX_DEPTH: usize = 3;
+
 
 // webscraper
-pub fn seaker(conn: &Connection, url_input: String, depth: usize, file: &mut File) -> Result<(), Box<dyn Error>> {
-    //max depth to search through -> later
-    if depth > MAX_DEPTH {
+pub fn seaker(conn: &Connection, url_input: String, depth: usize, file: &mut File, depth_max: usize) -> Result<(), Box<dyn Error>> {
+    
+    //max depth to search through
+    if depth > depth_max {
         return Ok(());
     }
+    
     //init client to send request
     let client = reqwest::blocking::Client::new();
 
@@ -73,7 +75,7 @@ pub fn seaker(conn: &Connection, url_input: String, depth: usize, file: &mut Fil
 
     //Recursive call -> new links
     for link in new_links{
-        seaker(conn, link, depth+1, file)?;
+        seaker(conn, link, depth+1, file, depth_max)?;
     }
     Ok(())
 }
