@@ -1,15 +1,17 @@
 mod crawler;
 mod db;
+use std::path::Path;
 use std::io;
 use std::fs::File;
 use std::time:: Instant;
 
 //read url's
 fn main() {
-    
-    //create file to write links to
-    let mut file = File::create("C:\\Rust\\webcrawler_links\\link_results.txt").expect("Faild create file");
 
+    //file .txt
+    let path = Path::new("C:\\Rust\\webcrawler_links\\link_results.txt");
+    let mut file = File::create(path).expect("error create file");
+    
     //commandline input
     let mut url_input = String::new();
     let mut depth_str = String::new();

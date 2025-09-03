@@ -8,7 +8,7 @@ use std::io::Write;
 
 // webscraper
 pub fn seaker(conn: &Connection, url_input: String, depth: usize, file: &mut File, depth_max: usize) -> Result<(), Box<dyn Error>> {
-    
+
     //max depth to search through
     if depth > depth_max {
         return Ok(());
@@ -21,13 +21,14 @@ pub fn seaker(conn: &Connection, url_input: String, depth: usize, file: &mut Fil
     let response = client.get(&url_input)
         .header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, wie Gecko) Chrome/100.0.4896.127 Safari/537.36")
         .send()?;
+    
 
     //ask status
     if !response.status().is_success() {
         eprintln!("Failed to call: {}, Status: {}", url_input, response.status());
     }
     
-    //search for new links in input url -> look for new links in those and so on
+    //search for new links in input url -> look for new links in those and so on...
     let body = response.text()?;
     let document = Html::parse_document(&body);
     let selector_link = Selector::parse("a").unwrap();
@@ -74,7 +75,7 @@ pub fn seaker(conn: &Connection, url_input: String, depth: usize, file: &mut Fil
 
     //Recursive call -> new links -> search trough new links +1 depth
     for link in new_links{
-        seaker(conn, link, depth+1, file, depth_max)?;
+        seaker(conn, link, depth+1, file, depth_max).expect("seaker error");
     }
     Ok(())
 }
