@@ -54,7 +54,7 @@ pub fn seaker(conn: &Connection, url_input: String, depth: usize, file: &mut Fil
             };
 
             //print discovert links
-            println!("- {}", absolute_link);
+            println!("- {} Depth: {}", absolute_link, depth);
             
             //parse absolute_link -> insert_link
             db::insert_link(conn ,&absolute_link, depth)?;
