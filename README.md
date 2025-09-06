@@ -13,7 +13,7 @@ Stores:
 
 ## Features future
 -  Recursively crawls websites up to a configurable depth  
--  Stores:
+Stores:
   - its parent URL
   - the crawl depth level
 - Each link is saved with its **parent URL** and **depth level**, allowing a structured hierarchy of web connections.
@@ -27,7 +27,7 @@ Stores:
 ## 📦 Installation
 
 ```bash
-git clone https://github.com/your-username/webcrawler_links.git
+https://github.com/jakobhindemith/webcrawler_links
 cd webcrawler_links
 cargo run
 ```
