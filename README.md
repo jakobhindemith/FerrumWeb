@@ -5,7 +5,7 @@ A recursive **Rust** web crawler that visits websites, extracts links, and store
 ## 🔍 Features
 
 -  Extracts all HTML links (`<a href="...">`)  
--  Stores:
+Stores:
   - the discovered URL
   - and a unique ID
 -  Persists data in a SQLite database (table: `link`)
