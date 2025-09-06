@@ -27,7 +27,7 @@ Stores:
 ## 📦 Installation
 
 ```bash
-https://github.com/jakobhindemith/webcrawler_links
+git clone https://github.com/jakobhindemith/webcrawler_links
 cd webcrawler_links
 cargo run
 ```
