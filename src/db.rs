@@ -17,9 +17,9 @@ pub fn init_db() -> Result<Connection> {
 }
 
 //insert link -> DB 
-pub fn insert_link(conn: &Connection, url: &str, depth: usize) -> Result<i64>{
-    conn.execute("INSERT INTO link (url, depth) VALUES (?1, ?2)",
-    params![url, depth as i64],
+pub fn insert_link(conn: &Connection, url: &str, depth: usize, parent_id: i32) -> Result<i64>{
+    conn.execute("INSERT INTO link (url, depth, parent_id) VALUES (?1, ?2, ?3)",
+    params![url, depth as i64, parent_id],
     )?;
 Ok(conn.last_insert_rowid())
 }
