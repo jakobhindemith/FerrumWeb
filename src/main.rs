@@ -28,12 +28,17 @@ fn main() {
     let conn = db::init_db().expect("DB Fail");
     //start with depth 0
     let depth = 0;
+    //start with parent id = 1
+    let parent_id = 0;
+
+    //insert input link -> db
+    db::insert_link(&conn, &url_input, depth, parent_id).expect("Failed to insert url_input link");
 
      //Timer for Runtime
     let start = Instant::now();
 
     //search links
-    match crawler::seaker(&conn, url_input, depth, &mut file, depth_max) {
+    match crawler::seaker(&conn, url_input, depth, &mut file, depth_max, parent_id) {
         Ok(_) => println!("Scraping successful!"),
         Err(e) => eprintln!("Error seaking : {}", e),
     }

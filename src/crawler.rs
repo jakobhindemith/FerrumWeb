@@ -7,7 +7,7 @@ use std::fs::File;
 use std::io::Write;
 
 // webscraper
-pub fn seaker(conn: &Connection, url_input: String, depth: usize, file: &mut File, depth_max: usize) -> Result<(), Box<dyn Error>> {
+pub fn seaker(conn: &Connection, url_input: String, depth: usize, file: &mut File, depth_max: usize, mut parent_id: i32) -> Result<(), Box<dyn Error>> {
 
     //max depth to search through
     if depth > depth_max {
@@ -22,7 +22,6 @@ pub fn seaker(conn: &Connection, url_input: String, depth: usize, file: &mut Fil
         .header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, wie Gecko) Chrome/100.0.4896.127 Safari/537.36")
         .send()?;
     
-
     //ask status
     if !response.status().is_success() {
         eprintln!("Failed to call: {}, Status: {}", url_input, response.status());
@@ -34,7 +33,10 @@ pub fn seaker(conn: &Connection, url_input: String, depth: usize, file: &mut Fil
     let selector_link = Selector::parse("a").unwrap();
 
     println!("links found on {} (Depth: {})", url_input, depth);
-    println!("---------------------------------------------------");
+    //print partent_id ->> TEST
+    println!("------------------------{}---------------------------", parent_id);
+    //counting for next parent id
+    parent_id = &parent_id + 1;
 
     //vector with new links
     let mut new_links = Vec::new();
@@ -53,7 +55,7 @@ pub fn seaker(conn: &Connection, url_input: String, depth: usize, file: &mut Fil
             println!("- {} Depth: {}", absolute_link, depth);
             
             //parse absolute_link -> insert_link
-            db::insert_link(conn ,&absolute_link, depth)?;
+            db::insert_link(conn ,&absolute_link, depth, parent_id)?;
 
             //write links into file
             file.write_all(absolute_link.as_bytes())?;
@@ -71,7 +73,7 @@ pub fn seaker(conn: &Connection, url_input: String, depth: usize, file: &mut Fil
 
     //Recursive call -> new links -> search trough new links +1 depth
     for link in new_links{
-        seaker(conn, link, depth+1, file, depth_max).expect("seaker error");
+        seaker(conn, link, depth+1, file, depth_max, parent_id).expect("seaker error");
     }
     Ok(())
 }
