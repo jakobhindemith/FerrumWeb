@@ -1,6 +1,8 @@
-# 🕸️ FerrumWeb
+# 🕸️ FERRVMweb
 
 This is a recursive web crawler written in **Rust** that visits websites, extracts links, and stores them in a **SQLite database**.
+
+<img width="907" height="763" alt="grafik" src="https://github.com/user-attachments/assets/75ef0ffa-e108-4807-be64-b80fb4049fe1" />
 
 ## 🔍 Features
 
