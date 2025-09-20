@@ -8,13 +8,21 @@ use std::time:: Instant;
 //read url's
 fn main() {
 
-    //file .txt
+    //file .txt -> rename
     let path = Path::new("C:\\Rust\\webcrawler_links\\link_results.txt");
     let mut file = File::create(path).expect("error create file");
     
     //commandline input
     let mut url_input = String::new();
     let mut depth_str = String::new();
+
+    println!("
+'||''''| '||''''|  '||''''|  '||''|.   '||'  '|' '||    ||' '||'  '|' '||    ||'                     '||      
+ ||  .    ||  .     ||  .     ||   ||   ||    |   |||  |||   '|.  .'   |||  |||  ... ... ...   ....   || ...  
+ ||''|    ||''|     ||''|     ||''|'    ||    |   |'|..'||    ||  |    |'|..'||   ||  ||  |  .|...||  ||'  || 
+ ||       ||        ||        ||   |.   ||    |   | '|' ||     |||     | '|' ||    ||| |||   ||       ||    | 
+.||.     .||.....| .||.....| .||.  '|'   '|..'   .|. | .||.     |     .|. | .||.    |   |     '|...'  '|...'                         
+                                                                                                              ");
 
     println!("Enter link: ");
     io::stdin().read_line(&mut url_input).expect("url_input error");

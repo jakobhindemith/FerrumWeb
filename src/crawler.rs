@@ -32,6 +32,7 @@ pub fn seaker(conn: &Connection, url_input: String, depth: usize, file: &mut Fil
     let document = Html::parse_document(&body);
     let selector_link = Selector::parse("a").unwrap();
 
+    print!("\n");
     println!("links found on {} (Depth: {})", url_input, depth);
     //print partent_id ->> TEST
     println!("------------------------{}---------------------------", parent_id);
