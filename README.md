@@ -2,7 +2,9 @@
 
 This is a recursive web crawler written in **Rust** that visits websites, extracts links, and stores them in a **SQLite database**.
 
-<img width="907" height="763" alt="grafik" src="https://github.com/user-attachments/assets/75ef0ffa-e108-4807-be64-b80fb4049fe1" />
+<div align ="center">
+<img width="720" height="770" alt="grafik" src="https://github.com/user-attachments/assets/ae13b986-6fbb-4978-8364-91a8d6fb77ee" />
+</div>
 
 ## 🔍 Features
 
