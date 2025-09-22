@@ -17,6 +17,7 @@ Stores:
 ## Planned Feature
 
 - Each link is saved with its **parent URL** and **depth level**, allowing to visualize a structured hierarchy of web with the help of [`egui_graphs`] (https://crates.io/crates/egui_graphs/0.9.0)
+- for more information about egui_graphs go to: https://deepwiki.com/blitzarx1/egui_graphs/1-overview
 
 ## 📦 Crates
 
