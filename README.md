@@ -14,7 +14,7 @@ Stores:
   -  Persists data in a SQLite database (table: `link`)
   -  Recursively crawls websites up to a configurable depth  
 
-## Planned future
+## Planned Feature
 
 - Each link is saved with its **parent URL** and **depth level**, allowing to visualize a structured hierarchy of web with the help of [`egui_graphs`] (https://crates.io/crates/egui_graphs/0.9.0)
 
