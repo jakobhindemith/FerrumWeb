@@ -7,3 +7,4 @@ edition = "2024"
 reqwest = {version = "0.12.23", features = ["blocking"]}
 scraper = "0.24.0"
 rusqlite = { version = "0.37.0", features = ["bundled"] }
+eframe = "0.32.3"

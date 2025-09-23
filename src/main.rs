@@ -1,9 +1,12 @@
 mod crawler;
 mod db;
+mod window;
 use std::path::Path;
 use std::io;
 use std::fs::File;
 use std::time:: Instant;
+
+use crate::window::window_view;
 
 //read url's
 fn main() {
@@ -31,6 +34,9 @@ fn main() {
     println!("Enter depth to search: ");
     io::stdin().read_line(&mut depth_str).expect( "depth input error");
     let depth_max: usize = depth_str.trim().parse().expect("musst be a non negative integer");
+
+    //start window
+    window::window_view();
     
     //db Connection -> init
     let conn = db::init_db().expect("DB Fail");
