@@ -51,7 +51,6 @@ pub fn seaker(conn: &Connection, url_input: String, depth: usize, file: &mut Fil
         }else{
             continue;
         };
-
             //print discovert links
             println!("- {} Depth: {}", absolute_link, depth);
             
