@@ -1,13 +1,10 @@
 mod crawler;
 mod db;
 mod window;
-mod window;
 use std::path::Path;
 use std::io;
 use std::fs::File;
 use std::time:: Instant;
-
-use crate::window::window_view;
 
 //read url's
 fn main() {
